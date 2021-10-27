@@ -1,11 +1,11 @@
+// Store UserID for each reaction
 const players = [];
 
 module.exports = {
   name: 'messageCreate',
   async execute(message) {
-    // Store UserID for each reaction
 
-    if (message.content === '!newGame') {
+    if (message.member.permissions.has('administrator') && message.content === '!newGame') {
       try {
         // Send message and wait for it to be sent
         const sentMessage = await message.channel.send('Round is about to start. Please give a \ :thumbsup: \ to this message when you are ready');
@@ -22,7 +22,6 @@ module.exports = {
 
         collector.on('collect', (reaction, user) => {
           players.push(user);
-          console.log(players);
           message.channel.send(`${user.tag} is playing!`)
         });
 
@@ -32,7 +31,7 @@ module.exports = {
       } catch (error) {
         console.error(error);
       }
-    } else if (message.content === '!sendRoles') {
+    } else if (message.member.permissions.has('administrator') && message.content === '!sendRoles') {
       message.channel.send('Everyone is ready. I will now give assignments. All assignments will be done through PMs');
 
       // DM each player their role
