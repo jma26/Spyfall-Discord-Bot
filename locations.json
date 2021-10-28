@@ -1,0 +1,116 @@
+{
+  "locations": [{
+    "title": "Airport",
+    "roles": [
+      "First Class Passenger",
+      "Economy Class Passenger",
+      "Air Marshall",
+      "Airport Security Officer",
+      "Air Hostess",
+      "Co-Pilot",
+      "Pilot",
+      "Aeronautical Engineer",
+      "Baggage Handler",
+      "Airport Concessionaire",
+      "Air Traffic Controller",
+      "Airport Fire Crew"
+
+    ]
+  }, {
+    "title": "Disneyland",
+    "roles": [
+      "Rice Operator",
+      "Disney Mascot",
+      "Retail Staff",
+      "Food Cart Staff",
+      "Entrance Ticket Staff",
+      "Security Guard",
+      "Tram Driver",
+      "Mainstreet Singer",
+      "Disney Princess",
+      "Parking Garage Staff",
+      "Fireworks Operator",
+      "Ride Animatronics"
+    ]
+  }, {
+    "title": "Hotel",
+    "roles": [
+      "Doorman",
+      "Guest Service Agent",
+      "Security Guard",
+      "General Manager",
+      "Bellman",
+      "Housekeeper",
+      "Bartender",
+      "Catering Manager",
+      "Tourist",
+      "Kitchen Staff",
+      "Busser",
+      "Maintenance Staff"
+    ]
+  }, {
+    "title": "Cruise Ship",
+    "roles": [
+      "Cook",
+      "Captain",
+      "Bartender",
+      "Musician",
+      "Waiter",
+      "Mechanic",
+      "Nurse",
+      "Fitness Instructor",
+      "Comedian",
+      "Host/Hostess",
+      "Passenger",
+      "Maintenance Staff"
+    ]
+  }, {
+    "title": "Restaurant",
+    "roles": [
+      "Musician",
+      "Bouncer",
+      "Hostess",
+      "Executive Chef",
+      "Sous Chef",
+      "Line Cook",
+      "Food Critic",
+      "Waiter",
+      "Customer",
+      "Bartender",
+      "Busser",
+      "Dish Washer"
+    ]
+  }, {
+    "title": "Supermarket",
+    "roles": [
+      "Cashier",
+      "Customer Service",
+      "Butcher",
+      "Janitor",
+      "Security Guard",
+      "Food Sample Demonstrator",
+      "Shelf Stocker",
+      "Customer",
+      "Bagger",
+      "Shipping/Receiving Clerks",
+      "General Manager",
+      "Assistant Manager"
+    ]
+  }, {
+    "title": "University",
+    "roles": [
+      "Professor",
+      "Graduate Student",
+      "Freshman Student",
+      "Dormitory chef",
+      "Dean",
+      "Nurse",
+      "Librarian",
+      "Maintenance Man",
+      "Sorority Girl",
+      "Fraternity Guy",
+      "Janitor",
+      "Campus Officer"
+    ]
+  }]
+}
