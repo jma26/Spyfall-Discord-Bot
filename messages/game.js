@@ -1,7 +1,12 @@
 const locations = require('../locations.json');
 
-// Store UserID for each reaction
-const players = [];
+const gameSetting = {
+  players: [],
+  location: '',
+  totalPlayers: 1,
+  time: 480,
+  spies: 1
+}
 
 module.exports = {
   name: 'messageCreate',
@@ -17,21 +22,24 @@ module.exports = {
           return reaction.emoji.name === '👍' && user.id === message.author.id;
         }
         
-        collector = sentMessage.createReactionCollector({
+        const collector = sentMessage.createReactionCollector({
           filter,
-          time: 5000
+          time: 60000
         })
 
         collector.on('collect', (reaction, user) => {
-          players.push({
+          gameSetting.players.push({
             id: user.id,
             tag: user.tag
           });
           message.channel.send(`${user.tag} is playing!`)
+          if (gameSetting.totalPlayers === players.length) {
+            collector.stop();
+          }
         });
 
         collector.on('end', collected => {
-          console.log(`Size of collection: ${collected.size}`);
+          console.log(`# of players playing: ${collected.size}`);
         });
       } catch (error) {
         console.error(error);
@@ -43,21 +51,21 @@ module.exports = {
       const location = locations.locations[Math.floor(Math.random() * locations.locations.length) + 1];
       console.log(location);
       // Assign a spy
-      const spies = players[Math.floor(Math.random() * players.length)]
+      const spies = gameSetting.players[Math.floor(Math.random() * gameSetting.players.length)]
       spies.role = 'Spy';
       spies.location = 'Unknown';
       // Assign non-spy roles
-      for (let i = 0; i < players.length; i++) {
-        if (!players[i].role) {
-          players[i].location = location.title;
-          players[i].role = location.roles[i];
-        } else if (players.length < 3) {
+      for (let i = 0; i < gameSetting.players.length; i++) {
+        if (!gameSetting.players[i].role) {
+          gameSetting.players[i].location = location.title;
+          gameSetting.players[i].role = location.roles[i];
+        } else if (gameSetting.players.length < 3) {
           console.log('Sorry, not enough players');
         }
       }
 
       // DM each player their role
-      players.forEach(player => {
+      gameSetting.players.forEach(player => {
         message.client.users.fetch(player.id).then(user => {
           user.send(`Game location is ${player.location}. Your role is ${player.role}`);;
         })
@@ -69,6 +77,32 @@ module.exports = {
       })
 
       message.channel.send(sentMessage);
+    } else if (message.member.permissions.has('administrator') && message.content === '!setTotalPlayers') {
+      message.channel.send(`Okay, how many total players are participating?`);
+
+      // Filter reply with a number
+      const filter = (m) => {
+        return m.author.id === message.author.id
+      }
+
+      const messageCollector = message.channel.createMessageCollector({
+        filter,
+        time: 60000
+      });
+
+      messageCollector.on('collect', m => {
+        if (!isNaN(parseFloat(m.content))) {
+          let totalPlayers = parseInt(m.content);
+          gameSetting.totalPlayers = totalPlayers;
+          messageCollector.stop();
+        } else {
+          message.channel.send('Please enter a valid number');
+        }
+      })
+
+      messageCollector.on('end', m => {
+        message.channel.send(`Total Player Count: ${gameSetting.totalPlayers}`);
+      })
     } else if (message.member.permissions.has('administrator') && message.content === '!startTimer') {
       message.channel.send('Countdown initiating! Let the games begin!');
       
@@ -91,8 +125,6 @@ module.exports = {
           clearInterval(counter);
         }
       }, 1000)
-
-      // counter
     }
   }
 }
